@@ -42,8 +42,8 @@ void loop()
 	HandleTasks();
 	
 	//Atualiza os leds
-	digitalWrite(LED1PIN, !led1State);
-	digitalWrite(LED2PIN, !led2State);
+	digitalWrite(LED1PIN, led1State);
+	digitalWrite(LED2PIN, led2State);
 	
 	//Checa a flag de atualizar o horario
 	if(updateTimeFlag)
@@ -69,23 +69,51 @@ void loop()
 	//Checa a flag para ler os botões
 	if(readButtonFlag)
 	{
-		//Checa se o botão 1 foi pressionado
-		int button1State = digitalRead(BUTTON1PIN);
-		if(button1State)
+		//Lógica para controle do bounce e leitura do botão 1
+		int button1Reading = digitalRead(BUTTON1PIN);
+		
+		if (button1Reading != lastButton1State)
+			lastButton1DebounceTime = millis();
+		
+		if ((millis() - lastButton1DebounceTime) > 50)
 		{
-			//Inverte o estado do led e notifica a mudança
-			led1State = !led1State;
-			NotifyLed1State();
+			if (button1Reading != button1State)
+			{
+				button1State = button1Reading;
+
+				if (button1State == HIGH)
+				{
+					//Inverte o estado do led e notifica a mudança
+					led1State = !led1State;
+					NotifyLed1State();
+				}
+			}
 		}
 		
-		//Checa se o botão 2 foi pressionado
-		int button2State = digitalRead(BUTTON2PIN);
-		if(button2State)
+		lastButton1State = button1Reading;
+		
+		//Lógica para controle do bounce e leitura do botão 2
+		int button2Reading = digitalRead(BUTTON2PIN);
+		
+		if (button2Reading != lastButton2State)
+			lastButton2DebounceTime = millis();
+		
+		if ((millis() - lastButton2DebounceTime) > 50)
 		{
-			//Inverte o estado do led e notifica a mudança
-			led2State = !led2State;
-			NotifyLed2State();
+			if (button2Reading != button2State)
+			{
+				button2State = button2Reading;
+
+				if (button2State == HIGH)
+				{
+					//Inverte o estado do led e notifica a mudança
+					led2State = !led2State;
+					NotifyLed2State();
+				}
+			}
 		}
+		
+		lastButton2State = button2Reading;
 		
 		//Reseta a flag
 		readButtonFlag = false;

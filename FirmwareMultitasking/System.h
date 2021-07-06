@@ -25,10 +25,23 @@ extern volatile unsigned long callTask;
 extern const int tasksCount;
 
 //Variaveis global
-//Estados dos leds
+//Estado do led1
 extern bool led1State;
+
+//Variaveis para o controle do bounce
+extern int button1State;
+extern int lastButton1State;
+extern unsigned long lastButton1DebounceTime;
+
+//Estado do led2
 extern bool led2State;
 
+//Variaveis para o controle do bounce
+extern int button2State;
+extern int lastButton2State;
+extern unsigned long lastButton2DebounceTime;
+
+//WebServer
 extern AsyncWebServer server;
 extern AsyncWebSocket ws;
 

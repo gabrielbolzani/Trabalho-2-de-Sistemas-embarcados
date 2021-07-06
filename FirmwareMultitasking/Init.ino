@@ -12,6 +12,14 @@
 bool led1State;
 bool led2State;
 
+int button1State = LOW;
+int lastButton1State = LOW;
+unsigned long lastButton1DebounceTime = 0;
+
+int button2State = LOW;
+int lastButton2State = LOW;
+unsigned long lastButton2DebounceTime = 0;
+
 //Configuração do web server (porta 80)
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");

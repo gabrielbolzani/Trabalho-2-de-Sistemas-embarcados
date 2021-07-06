@@ -8,8 +8,8 @@ Task tasks[] =
 	{SetTimeFlag, 1000, 1000},
 	//Task para coletar os dados do sensor, executa a cada 500ms
 	{ReadSensorData, 500, 500},
-	//Task para ler os botões, executa a cada 50ms
-	{ReadButton, 50, 50}
+	//Task para ler os botões, executa a cada 10ms
+	{ReadButton, 10, 10}
 };
 
 //Quantidade de tasks
